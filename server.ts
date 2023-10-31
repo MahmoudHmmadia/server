@@ -56,9 +56,9 @@ app.use(expressPeerServer);
 // ==> ROUTES <== //
 // app.use(express.static("dist"));
 app.use("/", serverRoutes);
-app.use("/auth", upload.single("profile"), authRoutes);
-app.use("/user", userRoutes);
-app.use("/meet", meetRoutes);
+// app.use("/auth", upload.single("profile"), authRoutes);
+// app.use("/user", userRoutes);
+// app.use("/meet", meetRoutes);
 
 // ==> RUN SERVER <== //
 
