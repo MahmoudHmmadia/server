@@ -1,0 +1,48 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum PLAN {
+  FREE
+  PRO
+  PREMIUM
+}
+
+enum ROLE {
+  ADMIN
+  GUEST
+}
+
+model User {
+  id          String   @id @default(uuid())
+  name        String
+  email       String   @unique
+  password    String
+  age         String   @default("")
+  callsNumber Int      @default(0)
+  plan        PLAN     @default(FREE)
+  refresh     String   @default("")
+  role        ROLE     @default(GUEST)
+  imageName   String
+  meetCode    String   @default("")
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  Meet        Meet?    @relation(fields: [meetId], references: [id])
+  meetId      String?
+}
+
+model Meet {
+  id         String   @id @default(uuid())
+  members    User[]
+  code       String   @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
